@@ -143,7 +143,8 @@ function SplitStr(var theString: string; delimiter: string): string;
 implementation
 
 uses
-   Laz_And_GLESv2_Canvas, uJavaParser, LamwDesigner;
+   Laz_And_GLESv2_Canvas, uJavaParser, LamwDesigner, SrcEditorIntf, SynEdit,
+   SynEditHighlighterFoldBase, SynEditKeyCmds;
 
 procedure Register;
 begin
