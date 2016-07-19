@@ -399,7 +399,7 @@ begin
 
           if FileExists(FPathToJavaTemplates+DirectorySeparator + 'Controls.native') then
           begin
-           CopyFile(FPathToJavaTemplates+DirectorySeparator + 'Controls.native',
+            CopyFile(FPathToJavaTemplates+DirectorySeparator + 'Controls.native',
               FAndroidProjectName+DirectorySeparator+'lamwdesigner'+DirectorySeparator+'Controls.native');
           end;
 
@@ -1315,7 +1315,7 @@ begin
           strList.Add('export JAVA_HOME='+linuxPathToJavaJDK);     //export JAVA_HOME=/usr/lib/jvm/java-6-openjdk
           strList.Add('cd '+linuxAndroidProjectName);
           strList.Add('ant -Dtouchtest.enabled=true debug');
-          strList.SaveToFile(linuxAndroidProjectName+linuxDirSeparator+'build-debug.sh');
+          strList.SaveToFile(FAndroidProjectName+PathDelim+'build-debug.sh');
 
           strList.Clear;
           if FPathToAntBin <> '' then
@@ -1324,7 +1324,7 @@ begin
           strList.Add('export JAVA_HOME='+linuxPathToJavaJDK);     //export JAVA_HOME=/usr/lib/jvm/java-6-openjdk
           strList.Add('cd '+linuxAndroidProjectName);
           strList.Add('ant clean release');
-          strList.SaveToFile(linuxAndroidProjectName+linuxDirSeparator+'build-release.sh');
+          strList.SaveToFile(FAndroidProjectName+PathDelim+'build-release.sh');
 
           linuxPathToAdbBin:= linuxPathToAndroidSdk+linuxDirSeparator+'platform-tools';
 
@@ -1337,30 +1337,30 @@ begin
           strList.Add(linuxPathToAdbBin+linuxDirSeparator+'adb install -r bin'+linuxDirSeparator+FSmallProjName+'-'+FAntBuildMode+'.apk');
 
           strList.Add(linuxPathToAdbBin+linuxDirSeparator+'adb logcat');
-          strList.SaveToFile(linuxAndroidProjectName+linuxDirSeparator+'install.sh');
+          strList.SaveToFile(FAndroidProjectName+PathDelim+'install.sh');
 
           //linux uninstall  - thanks to Stephano!
           strList.Clear;
           strList.Add(linuxPathToAdbBin+linuxDirSeparator+'adb uninstall '+FPackagePrefaceName+'.'+LowerCase(FSmallProjName));
-          strList.SaveToFile(linuxAndroidProjectName+linuxDirSeparator+'uninstall.sh');
+          strList.SaveToFile(FAndroidProjectName+PathDelim+'uninstall.sh');
 
           //linux logcat  - thanks to Stephano!
           strList.Clear;
           strList.Add(linuxPathToAdbBin+linuxDirSeparator+'adb logcat');
-          strList.SaveToFile(linuxAndroidProjectName+linuxDirSeparator+'logcat.sh');
+          strList.SaveToFile(FAndroidProjectName+PathDelim+'logcat.sh');
 
           strList.Clear;
           strList.Add('export JAVA_HOME='+linuxPathToJavaJDK);     //export JAVA_HOME=/usr/lib/jvm/java-6-openjdk
           strList.Add('cd '+linuxAndroidProjectName);
           strList.Add('keytool -genkey -v -keystore '+FSmallProjName+'-release.keystore -alias '+dummy+'aliaskey -keyalg RSA -keysize 2048 -validity 10000 < '+
                        linuxAndroidProjectName+linuxDirSeparator+dummy+'keytool_input.txt');
-          strList.SaveToFile(linuxAndroidProjectName+linuxDirSeparator+'release-keystore.sh');
+          strList.SaveToFile(FAndroidProjectName+PathDelim+'release-keystore.sh');
 
           strList.Clear;
           strList.Add('export JAVA_HOME='+linuxPathToJavaJDK);     //export JAVA_HOME=/usr/lib/jvm/java-6-openjdk
           strList.Add('cd '+linuxAndroidProjectName);
           strList.Add('jarsigner -verify -verbose -certs '+linuxAndroidProjectName+linuxDirSeparator+'bin'+linuxDirSeparator+FSmallProjName+'-release.apk');
-          strList.SaveToFile(linuxAndroidProjectName+linuxDirSeparator+'jarsigner-verify.sh');
+          strList.SaveToFile(FAndroidProjectName+PathDelim+'jarsigner-verify.sh');
 
         end;
         Result := True;
